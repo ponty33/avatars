@@ -1,4 +1,6 @@
 var request = require('request');
+var fs = require('fs');
+var token = require('./secret');
 
 console.log('Welcome to the GitHub Avatar Downloader!');
 input = process.argv
@@ -8,21 +10,25 @@ function getRepoContributors(repoOwner, repoName, cb) {
     url: "https://api.github.com/repos/" + repoOwner + "/" + repoName + "/contributors",
     headers: {
       'User-Agent': 'request',
-      'Authorization': 'token',
+      'Authorization': token.GITHUB_TOKEN,
     }
   }
   
-  
-  
-  
   request(options, function(err, res, body) {
-    cb(err, body);
+    cb(err, JSON.parse(body));
+    console.log((JSON.parse(body)[0].avatar_url))
   });
  
 }
 
 getRepoContributors(input[2], input[3], function(err, result) {
+  var url = [];
+  for (var i = 0; i < result.length; i++) {
+    url.push(result[i].avatar_url);
+  }
+  
   console.log("Errors:", err);
-  console.log("Result:", result);
+  console.log("Result:", url);
 });
+
 
