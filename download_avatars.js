@@ -31,4 +31,8 @@ getRepoContributors(input[2], input[3], function(err, result) {
   console.log("Result:", url);
 });
 
+function downloadImageByURL(url, filePath) {
+  
+}
 
+downloadImageByURL("https://avatars2.githubusercontent.com/u/2741?v=3&s=466", "avatars/kvirani.jpg")
